@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: techtrends
-  namespace: { .Values.namespace.name }}
+  namespace: {{ .Values.namespace.name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -24,7 +24,7 @@ spec:
 {{ toYaml .Values.resources | indent 12 }}
         livenessProbe:
           httpGet:
-            path: { .Values.livenessProbe.path }}
+            path: {{ .Values.livenessProbe.path }}
             port: {{ .Values.containerPort }}
         readinessProbe:
           httpGet:

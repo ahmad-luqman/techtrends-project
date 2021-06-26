@@ -3,6 +3,7 @@ import sqlite3
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 import logging
+import sys
 
 connection_count = 0
 
@@ -27,7 +28,10 @@ def get_post(post_id):
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'
 FORMAT='%(levelname)s:%(name)s: %(asctime)s %(message)s'
-logging.basicConfig(level=logging.DEBUG, format=FORMAT, datefmt='%Y-%m-%d %H:%M:%S')
+stdout_handler =  logging.StreamHandler(sys.stdout)
+stderr_handler =  logging.StreamHandler(sys.stderr)
+handlers = [stderr_handler, stdout_handler]
+logging.basicConfig(level=logging.DEBUG, format=FORMAT, datefmt='%Y-%m-%d %H:%M:%S', handlers=handlers)
 
 
 # Define the main route of the web application 
